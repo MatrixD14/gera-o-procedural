@@ -29,17 +29,27 @@ public class TerreController extends Component {
   }
 
   public void reload() {
-    myposblock();
-    WaterCriate();
-    MatrizChunck();
-    generat();
-    TerrVertex = modela.meshup(false, TerrModelo, tama.TerrMate, TerrTriangle, TerrVertices, TerrNormal, TerrUV);
-    if (myObject.exists()) return;
-    HeightMap.clear();
-    TerrVertices.clear();
-    TerrNormal.clear();
-    TerrUV.clear();
-  } 
+    new AsyncTask(
+        new AsyncRunnable() {
+          public Object onBackground(Object input) {
+            TerrVertex = new Vertex();
+            myposblock();
+            WaterCriate();
+            MatrizChunck();
+            generat();
+            return null;
+          }
+
+          public void onEngine(Object result) {
+
+            if (myObject.exists()) return;
+            HeightMap.clear();
+            TerrVertices.clear();
+            TerrNormal.clear();
+            TerrUV.clear();
+          }
+        });
+  }
 
   private void MatrizChunck() {
     block = new int[tama.width + 1][tama.width + 1];
@@ -66,14 +76,15 @@ public class TerreController extends Component {
       }
     }
     modela.triangulo(tama.width, TerrTriangle);
-  }
+    TerrVertex = modela.meshup(false, TerrModelo, tama.TerrMate, TerrTriangle, TerrVertices, TerrNormal, TerrUV);
+  } 
 
   private void topFace(float x, float y, float z, int typeblock) {
     if (typeblock < 0) return;
     TerrVertices.add(new Vector3(x, y, z));
     TerrNormal.add(new Vector3(0, 1, 0));
     Vector2 uv = mapuv(typeblock);
-    TerrUV.add(new Vector2(uv.x/2,uv.y/2));
+    TerrUV.add(new Vector2(uv.x / 2, uv.y / 2));
   }
 
   private Vector2 mapuv(int type) {
@@ -88,7 +99,7 @@ public class TerreController extends Component {
 
   public void WaterCriate() {
     Obj = new SpatialObject("Water");
-    Obj.setParent(myObject);
+    //Obj.setParent(myObject);
     Obj.setStatic(true);
     Obj.addComponent(new ModelRenderer());
     Obj.addComponent(new Water());
