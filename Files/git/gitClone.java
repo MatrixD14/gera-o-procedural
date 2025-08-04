@@ -17,22 +17,25 @@ public class gitClone {
       while ((count = bs.read(date, 0, 1024)) != -1) {
         fs.write(date, 0, count);
       }
-      if (addPasth.length() == 0) Console.log("falho file void / no exists");
+      if (addPasth.length() == 0) Console.log("falho file void or no exists");
     } catch (IOException e) {
       Console.log("erro no Download file: " + e.getMessage());
     } finally {
       try {
         if (fs != null) fs.close();
       } catch (IOException e) {
+        Console.log("erro no FileOutputStream: " + e.getMessage());
       }
       try {
         if (bs != null) bs.close();
       } catch (IOException e) {
+        Console.log("erro no BufferedInputStream: " + e.getMessage());
       }
       try {
         if (in != null) in.close();
       } catch (IOException e) {
-      }
+        Console.log("erro no InputStream: " + e.getMessage());
+      } 
     }
   }
 }
