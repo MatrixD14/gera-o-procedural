@@ -55,6 +55,7 @@ public class gitCloneMult {
           StringBuilder InforDate = new StringBuilder();
           InforDate.append("{\n \"pasth\": \"").append(Dir).append("\",\n \"NameFile\": \"").append(destino).append("\",\n \"Link\": \"").append(json.download_url).append("\"\n}");
           Console.log(InforDate.toString());
+          Console.log(new File(destino).exists()?"file já existe sobrescrevendo":"");
         }
       } 
     } catch (Exception e) {
