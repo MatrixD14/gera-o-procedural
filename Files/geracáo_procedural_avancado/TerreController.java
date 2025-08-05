@@ -29,27 +29,17 @@ public class TerreController extends Component {
   }
 
   public void reload() {
-    new AsyncTask(
-        new AsyncRunnable() {
-          public Object onBackground(Object input) {
-            TerrVertex = new Vertex();
-            myposblock();
-            WaterCriate();
-            MatrizChunck();
-            generat();
-            return null;
-          }
+    myposblock();
+    WaterCriate();
+    MatrizChunck();
+    generat();
 
-          public void onEngine(Object result) {
-
-            if (myObject.exists()) return;
-            HeightMap.clear();
-            TerrVertices.clear();
-            TerrNormal.clear();
-            TerrUV.clear();
-          }
-        });
-  }
+    if (myObject.exists()) return;
+    HeightMap.clear();
+    TerrVertices.clear();
+    TerrNormal.clear();
+    TerrUV.clear();
+  } 
 
   private void MatrizChunck() {
     block = new int[tama.width + 1][tama.width + 1];
@@ -77,7 +67,7 @@ public class TerreController extends Component {
     }
     modela.triangulo(tama.width, TerrTriangle);
     TerrVertex = modela.meshup(false, TerrModelo, tama.TerrMate, TerrTriangle, TerrVertices, TerrNormal, TerrUV);
-  } 
+  }
 
   private void topFace(float x, float y, float z, int typeblock) {
     if (typeblock < 0) return;
@@ -99,7 +89,7 @@ public class TerreController extends Component {
 
   public void WaterCriate() {
     Obj = new SpatialObject("Water");
-    //Obj.setParent(myObject);
+    Obj.setParent(myObject);
     Obj.setStatic(true);
     Obj.addComponent(new ModelRenderer());
     Obj.addComponent(new Water());
