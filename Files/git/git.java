@@ -4,11 +4,11 @@ public class git extends Component {
 
   @Order(idx = -1)
   public String path; // "caminho da pasta a pasta /Files/ e a pasta raiz que poderar ser enviado para o github "
-  
+
   @Order(idx = 1)
-  public String BranchOrCommitRecovery = "main"; /// branch e uma linha paralela do projeto que muda com o tempo 
-                                                 /// CommitRecovery usa o codigo sha para voltar no tempo
-  
+  public String BranchOrCommitRecovery = "main"; // / branch e uma linha paralela do projeto que muda com o tempo
+  /// CommitRecovery usa o codigo sha para voltar no tempo
+
   @Order(idx = 2)
   public String Commit = "comito"; // "etiqueta que marca o tempo de modificação do arquivo que quanda o sha"
 
@@ -28,7 +28,7 @@ public class git extends Component {
           new PropertiesButtonListener() {
             void onClicked() {
               DownLoad();
-            }
+            } 
           });
 
   @Order(idx = 4)
@@ -44,11 +44,11 @@ public class git extends Component {
     String DownloadUrl = null;
     boolean onoffFile = false;
     if (path.contains(".")) onoffFile = true;
-    if (onoffFile && verifica(false, false)) {         
-      if((BranchOrCommitRecovery == null || BranchOrCommitRecovery.length() < 40) && verifica(false, true)) BranchOrCommitRecovery = "main";
+    if (onoffFile && verifica(false, false)) {
+      if ((BranchOrCommitRecovery == null || BranchOrCommitRecovery.length() < 40) && verifica(false, true)) BranchOrCommitRecovery = "main";
       else Console.log("recuperando file no tempo");
-      
-      DownloadUrl = "https://raw.githubusercontent.com/" + NameGitIsRepository +"/"+ BranchOrCommitRecovery+ "/Files/" + path;
+
+      DownloadUrl = "https://raw.githubusercontent.com/" + NameGitIsRepository + "/" + BranchOrCommitRecovery + "/Files/" + path;
       gitclone.GitClone(DownloadUrl, Dir);
 
       StringBuilder InforDate = new StringBuilder();
@@ -59,13 +59,13 @@ public class git extends Component {
       DownloadUrl = "https://api.github.com/repos/" + NameGitIsRepository + "/contents/Files/" + path + "?ref=main";
       File dir = new File(Dir);
       gitclonemult.gitPasthAll(gitclone, dir, DownloadUrl, token);
-    } 
+    }
   }
 
   public void UpLoad() {
     boolean onoffFile = false;
     if (path.contains(".")) onoffFile = true;
-    if(!verifica(true, true)) return;
+    if (!verifica(true, true)) return;
     if (onoffFile) {
       String API_Url = "https://api.github.com/repos/" + NameGitIsRepository + "/contents/Files/" + path + "?ref=main";
       // busca o sha do file
