@@ -42,7 +42,7 @@ public class gitCloneMult {
       FileJson(result.toString());
     } catch (IOException e) {
       Console.log("erro no json: " + e.getMessage());
-    }
+    } 
   }
 
   public void FileJson(String jsons) {
@@ -55,9 +55,9 @@ public class gitCloneMult {
           StringBuilder InforDate = new StringBuilder();
           InforDate.append("{\n \"pasth\": \"").append(Dir).append("\",\n \"NameFile\": \"").append(destino).append("\",\n \"Link\": \"").append(json.download_url).append("\"\n}");
           Console.log(InforDate.toString());
-          Console.log(new File(destino).exists()?"file já existe sobrescrevendo":"");
+          Console.log(new File(destino).exists() ? "file já existe sobrescrevendo" : "");
         }
-      } 
+      }
     } catch (Exception e) {
       Console.log("erro no Download file: " + e.getMessage());
     }
