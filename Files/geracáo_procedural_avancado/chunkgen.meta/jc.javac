@@ -6,8 +6,9 @@ public class chunkgen extends Component {
       Obj.addComponent(new ModelRenderer());
       Obj.addComponent(new TerreController());
       Obj.setPosition(posx, 0, posy);
+      Obj.removeComponent(new TerreController());
       return Obj;
-    } 
+    }
   }
 
   @Hide public float waterlevel = .5f;
@@ -65,11 +66,10 @@ public class chunkgen extends Component {
       int pz = (int) DescodificKeyZ(poss);
       long poskey = CodificKey(px, pz);
       if (chunck.containsKey(poskey)) continue;
-      // Vector2 pos = new Vector2(px * width, pz * width);
       SpatialObject TerrObj = object.TerrCriate(px * width, pz * width);
       if (TerrObj != null && TerrObj.exists()) chunck.put(poskey, TerrObj);
     }
-  }
+  } 
 
   private void removeChunck() {
     Iterator<Map.Entry<Long, SpatialObject>> item = chunck.entrySet().iterator();
