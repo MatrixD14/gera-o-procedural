@@ -11,17 +11,12 @@ public class TerreController extends Component {
   private HashMap<Long, Float> HeightMap = new HashMap<Long, Float>();
   private int[][] block = null;
   private malha modela = new malha();
-
   void start() {
     if (!myObject.exists()) return;
     tama = WorldController.findObject("player").findComponent("chunkgen");
     armLog = WorldController.findObject("log");
     TerrModelo = myObject.findComponent("modelrenderer");
-    TerrVertex = new Vertex();
     reload();
-    if (Obj == null || !Obj.exists()) return;
-    Water gera = Obj.findComponent("Water");
-    gera.WaterGera();
   }
 
   private void myposblock() {
@@ -29,17 +24,29 @@ public class TerreController extends Component {
   }
 
   public void reload() {
-    myposblock();
-    WaterCriate();
-    MatrizChunck();
-    generat();
+    new AsyncTask(
+        new AsyncRunnable() {
+          public Object onBackground(Object input) {
+            TerrVertex = new Vertex();
+            myposblock();
+            MatrizChunck();
+            HeightMap.clear();
+            TerrVertices.clear();
+            TerrNormal.clear();
+            TerrUV.clear();
+            return null;
+          }
 
-    if (myObject.exists()) return;
-    HeightMap.clear();
-    TerrVertices.clear();
-    TerrNormal.clear();
-    TerrUV.clear();
-  } 
+          public void onEngine(Object result) {
+            WaterCriate();
+            if (Obj != null || Obj.exists()) {
+              Water gera = Obj.findComponent("Water");
+              gera.WaterGera();
+            }
+            generat();
+          }
+        });
+  }
 
   private void MatrizChunck() {
     block = new int[tama.width + 1][tama.width + 1];
