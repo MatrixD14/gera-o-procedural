@@ -24,11 +24,12 @@ public class Water extends Component {
       for (int x = 0; x <= 4; x++) {
         WaterVertices.add(new Vector3(x * 4, tama.waterlevel, z * 4));
         WaterNormal.add(new Vector3(0, 1, 0));
-        WaterUV.add(new Vector2(x,z));
+        WaterUV.add(new Vector2(x, z));
       }
     }
     WaterTriangle = new int[4 * 4 * 6];
     modela.triangulo(4, WaterTriangle);
-    WaterVertex =modela.meshup(false, WaterModelo, tama.WaterMate, WaterTriangle, WaterVertices, WaterNormal,WaterUV);
+    WaterVertex = modela.meshup(false, WaterModelo, tama.WaterMate, WaterTriangle, WaterVertices, WaterNormal, WaterUV);
+    myObject.removeComponent(new Water());
   }
 }
