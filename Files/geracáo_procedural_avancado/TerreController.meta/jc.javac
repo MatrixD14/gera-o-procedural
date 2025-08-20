@@ -11,6 +11,7 @@ public class TerreController extends Component {
   private HashMap<Long, Float> HeightMap = new HashMap<Long, Float>();
   private int[][] block = null;
   private malha modela = new malha();
+
   void start() {
     if (!myObject.exists()) return;
     tama = WorldController.findObject("player").findComponent("chunkgen");
@@ -39,11 +40,11 @@ public class TerreController extends Component {
 
           public void onEngine(Object result) {
             WaterCriate();
+            generat();
             if (Obj != null || Obj.exists()) {
               Water gera = Obj.findComponent("Water");
               gera.WaterGera();
-            }
-            generat();
+            } 
           }
         });
   }
