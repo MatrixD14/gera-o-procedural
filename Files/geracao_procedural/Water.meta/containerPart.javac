@@ -1,0 +1,63 @@
+package JAVARuntime;
+
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.*;
+import java.util.concurrent.locks.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import java.util.zip.*;
+import java.text.*;
+import java.net.*;
+import java.math.*;
+import java.io.*;
+import java.nio.*;
+import java.time.*;
+import java.time.chrono.*;
+import java.time.format.*;
+import java.time.temporal.*;
+import java.time.zone.*;
+
+
+
+public class _JContainer{}
+
+//C-R:Water
+class Water extends Component { //[I-S]LN=0;[I-E]
+  private ModelRenderer WaterModelo = null; //[I-S]LN=1;[I-E]
+  private chunkgen tama = null; //[I-S]LN=2;[I-E]
+ //[I-S]LN=3;[I-E]
+public   void start() { //[I-S]LN=4;[I-E]
+    if (!myObject.exists()) return; //[I-S]LN=5;[I-E]
+    tama = WorldController.findObject("player").findComponent("chunkgen"); //[I-S]LN=6;[I-E]
+    WaterModelo = myObject.findComponent("modelrenderer"); //[I-S]LN=7;[I-E]
+  }  //[I-S]LN=8;[I-E]
+ //[I-S]LN=9;[I-E]
+  public void WaterGera() { //[I-S]LN=10;[I-E]
+    start(); //[I-S]LN=11;[I-E]
+    if(tama == null || WaterModelo == null) return; //[I-S]LN=12;[I-E]
+    Vertex WaterVertex = new Vertex(); //[I-S]LN=13;[I-E]
+    float y = tama.waterlevel; //[I-S]LN=14;[I-E]
+    int mult = 16; //[I-S]LN=15;[I-E]
+    float[] WaterVertices = new float[] {0, y, 0, 0, y, mult, mult, y, 0, mult, y, mult}; //[I-S]LN=16;[I-E]
+    float[] WaterNormal = new float[] {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0}; //[I-S]LN=17;[I-E]
+    float[] WaterUV = new float[] {0, 0, 0, 1, 1, 0, 1, 1}; //[I-S]LN=18;[I-E]
+    int[] WaterTriangle = new int[] {0, 1, 2, 2, 1, 3}; //[I-S]LN=19;[I-E]
+ //[I-S]LN=20;[I-E]
+    WaterVertex.setVertices(WaterVertices); //[I-S]LN=21;[I-E]
+    WaterVertex.setNormals(WaterNormal); //[I-S]LN=22;[I-E]
+    WaterVertex.setUVs(WaterUV); //[I-S]LN=23;[I-E]
+    WaterVertex.setTriangles(WaterTriangle); //[I-S]LN=24;[I-E]
+    WaterVertex.apply(); //[I-S]LN=25;[I-E]
+ //[I-S]LN=26;[I-E]
+    if (tama.WaterMate != null) WaterModelo.setMaterialFile(tama.WaterMate); //[I-S]LN=27;[I-E]
+    /*WaterModelo.setMaterial(new Material()); //[I-S]LN=28;[I-E]
+    WaterModelo.material.setShader("PBR/Standard"); //[I-S]LN=29;[I-E]
+    WaterModelo.material.setDiffuse(new Color(0,170,255));*/ //[I-S]LN=30;[I-E]
+WaterModelo.getMaterial().setReceiveLight(false); //[I-S]LN=31;[I-E]
+ //[I-S]LN=32;[I-E]
+    if (WaterVertex != null) WaterModelo.setVertex(WaterVertex); //[I-S]LN=33;[I-E]
+    WaterModelo.setCastShadowEnabled(false); //[I-S]LN=34;[I-E]
+  } //[I-S]LN=35;[I-E]
+} //[I-S]LN=36;[I-E]
