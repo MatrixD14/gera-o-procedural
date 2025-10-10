@@ -2,18 +2,18 @@ public class chunkgen extends Component {
   public class object {
     public SpatialObject TerrCriate(float posx, float posy) {
       SpatialObject Obj = new SpatialObject("chuck ");
-      Obj.setPosition(posx, 0, posy);     
+      Obj.setPosition(posx, 0, posy);
       Obj.addComponent(new ModelRenderer());
       Obj.addComponent(new TerreController());
       Obj.removeComponent(new TerreController());
       Obj.setStatic(true);
       return Obj;
-    } 
+    }
   }
 
   @Hide public float waterlevel = .5f;
   @Hide public int chunks = 4, width = 16, seed;
-  public float heightscale, valuelog;
+  public float heightscale = 7.5f, valuelog = .5f;
   public MaterialFile TerrMate, WaterMate;
   @Hide public chunkgen.object object;
   public ObjectFile[] trees = new ObjectFile[1];
@@ -31,7 +31,7 @@ public class chunkgen extends Component {
     seed = Random.range(0, 500);
     spawobjT();
     processotime(16 * 16);
-  }
+  } 
 
   @Override
   void repeat() {
