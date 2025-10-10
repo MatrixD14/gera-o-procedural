@@ -1,0 +1,1 @@
+{"code":"#version 300 es\nprecision mediump float;\n\nin vec2 o_texCoord;\nlayout(location \u003d 0) out vec4 out_0;\n\nuniform sampler2D albedo;\nuniform vec4 diffuse;\nvoid main (){\n   out_0 \u003d texture( albedo,o_texCoord) * diffuse;\n}"}
